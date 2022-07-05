@@ -1,0 +1,29 @@
+import com.google.gson.Gson
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task copyApkRelease(type: Copy){
+    def srcDirectory = "$rootDir\\app\\build\\outputs\\apk\\demo\\release\\app-demo-release.apk"
+    def dstDirectory = "$rootDir\\apk"
+    println "srcDirectory $srcDirectory to $dstDirectory"
+    from srcDirectory
+    into dstDirectory
+}
+

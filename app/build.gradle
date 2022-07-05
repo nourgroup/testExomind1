@@ -1,0 +1,128 @@
+import com.google.gson.Gson
+import java.util.Base64
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+import java.security.Key
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "ft.exomind.testexomind"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        //testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", 'API_DARKSKY', '"'+getKeyAPI()+'"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    testImplementation 'junit:junit:4.+'
+
+    //ktx android
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.fragment:fragment-ktx:1.3.1'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    // for by viewModels in Activity
+    implementation 'androidx.activity:activity-ktx:1.3.1'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    //androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    ///
+    def nav_version = "2.4.2"
+
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+}
+class Keys{String apiDakSky;String privateKey}
+def getKeyAPI(){
+    def fileContents = "$rootDir\\keys.json"
+    def inputFile = new File(fileContents)
+    def mykeys = ""
+    inputFile.withReader('UTF-8') { reader ->
+        def line
+        logger.quiet("reading file .. $fileContents ")
+        while ((line = reader.readLine()) != null) {
+            mykeys= line
+        }
+    }
+    Gson gson = new Gson();
+    Keys objKey = gson.fromJson(mykeys, Keys.class);
+    return objKey.apiDakSky
+}
+
+
+/*try
+{
+    System.err.println(objKey.privateKey);
+    System.err.println(objKey.apiDakSky);
+    println("---")
+    // Create key and cipher
+    IvParameterSpec ivParameterSpec1 = new IvParameterSpec(objKey.privateKey.getBytes("UTF-8"));
+    SecretKey aesKey = new SecretKeySpec(objKey.privateKey.getBytes("UTF-8"), "AES");
+    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    // encrypt the text
+    cipher.init(Cipher.ENCRYPT_MODE, aesKey,ivParameterSpec1);
+    byte[] encrypted = cipher.doFinal(objKey.apiDakSky.getBytes());
+    //def txt = new String(encrypted);
+    System.err.println(Base64.getEncoder().encode(encrypted))
+    // decrypt the text
+    IvParameterSpec ivParameterSpec2 = new IvParameterSpec(objKey.privateKey.getBytes("UTF-8"));
+    cipher.init(Cipher.DECRYPT_MODE, aesKey,ivParameterSpec2);
+    //String text2 = new String(cipher.doFinal(Base64.getEncoder().encode(objKey.apiDakSky.getBytes())));
+    String text2 = new String(cipher.doFinal(objKey.apiDakSky.getBytes()));
+    System.err.println(text2)
+    println("derrdfsdd")
+}
+catch(Exception e)
+{
+    e.printStackTrace();
+}*/

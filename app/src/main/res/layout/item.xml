@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="..."
+        android:textStyle="bold"
+        android:id="@+id/city"
+        android:layout_column="1"
+        android:padding="10dp"
+        />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_weather"
+            android:src="@mipmap/cloudy"
+            android:layout_column="2"
+            android:contentDescription="picto"
+            android:padding="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_weather"
+            android:text="..."
+            android:layout_column="3"
+            android:padding="10dp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_wind"
+            android:src="@mipmap/wind"
+            android:layout_column="4"
+            android:padding="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_wind"
+            android:text="..."
+            android:layout_column="5"
+            android:padding="10dp"
+            />
+</TableRow>

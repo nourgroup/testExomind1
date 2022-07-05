@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">testExomind</string>
+    <string name="waiting1">Nous téléchargeons les données…</string>
+    <string name="waiting2">C’est presque fini…</string>
+    <string name="waiting3">Plus que quelques secondes avant d’avoir le résultat…</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Recommencer">Recommencer</string>
+
+</resources>
